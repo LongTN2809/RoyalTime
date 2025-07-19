@@ -1,0 +1,141 @@
+<?php
+session_start();
+ if(isset($_SESSION['Notification'])){
+    $Notification = $_SESSION['Notification'];
+ }else{
+    $Notification = "";
+ }
+ unset($_SESSION['Notification']);
+ $conn = new mysqli("localhost" , "root" , "" , "QLSHOPDH");
+ if ($conn->connect_error) {
+    die("Kết nối thất bại: " . $conn->connect_error);
+}
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+  if(isset($_POST['register']) && ($_POST['register'])){
+     $name = $_POST["username"];
+ $pass = $_POST["userpass"];
+ $hashPass = password_hash($pass, PASSWORD_DEFAULT);
+ $sql = "INSERT INTO Users (NAME , PASSWORD) VALUES ('$name' , '$hashPass')";
+  if ($conn->query($sql) === TRUE) {
+      $_SESSION['Notification'] = "Đăng ký thành công";
+      header("Location: Login.php");
+     exit;
+    } else {
+        $_SESSION['Notification'] = "Lỗi" ;
+         $conn->error;
+    }
+  }
+
+  if(isset($_POST['login']) && ($_POST['login'])){
+      $name = $_POST['username'];
+      $pass = $_POST['userpass'];
+      $sqlSelect = "SELECT * FROM Users";
+      $result = $conn->query($sqlSelect);
+      if($result->num_rows > 0){
+        $found = false;
+        while($row= $result->fetch_assoc()){
+            if(strtolower($name) === strtolower($row['NAME']) && password_verify($pass , $row['PASSWORD'])){
+             $found = true;
+             break;
+            }
+        }
+      }
+      if(!$found){
+        $_SESSION['Notification'] = "Tên hoặc mật khẩu không đúng";
+        header("Location: Login.php");
+        exit;
+      }else{
+        header("Location: index.php");
+        exit;
+      }
+  }
+}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Login.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+      
+        <div class="wrapper active" id="loginForm">
+         <form action="Login.php" method="post">
+             <h2>Login</h2>
+             <div class="input-box">
+              <input type="text" name="username" id="" placeholder="Username" required>
+              <i class="fa-solid fa-user user"></i>
+             </div>
+             <div class="input-box">
+              <input type="password" name="userpass" id="" placeholder="Password" required>
+              <i class="fa-solid fa-eye-slash eye-close"></i>
+             </div>
+             <div class="remember-forgot">
+              <label for=""><input type="checkbox" name="rmb" id="">Remember me</label>
+              <a href="#">Forgot password?</a>
+             </div>
+             <div class="login-box">
+                    <!-- <input type="submit" class="btn" name="login" value="Login"> -->
+                     <button class="btn" name="login" value="login" type="submit">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            Login
+                    </button>
+             </div>
+               <div class="Notice">
+                <?php 
+                echo "<p>$Notification </p>" ;
+                ?>
+             </div>
+             <div class="register">
+              <p>Don't have account?<a href="#" onclick="showRegister()">Register</a></p>
+             </div>
+            
+         </form>
+    </div>
+
+    <div class="wrapper" id="registerForm">
+         <form action="Login.php" method="post">
+             <h2>Register</h2>
+             <div class="input-box">
+              <input type="text" name="username" id="" placeholder="Username" required>
+              <i class="fa-solid fa-user user"></i>
+             </div>
+             <div class="input-box">
+              <input type="password" name="userpass" id="" placeholder="Password" required>
+              <i class="fa-solid fa-eye-slash eye-close"></i>
+             </div>
+             <div class="remember-forgot">
+              <label for=""><input type="checkbox" name="rmb" id="">Remember me</label>
+              <a href="#">Forgot password?</a>
+             </div>
+             <div class="login-box">
+                <!-- <input type="submit" class="btn" name="register" value="Register"> -->
+                  <button class="btn" name="register" value="register" type="submit">
+                         <span></span>
+                         <span></span>
+                         <span></span>
+                         <span></span>
+                         Register
+                  </button>
+             </div>
+             <!-- <div class="Notice">
+                <?php 
+                echo "<p>$Notification </p>" ;
+                ?>
+             </div> -->
+             <div class="register">
+              <p>Do you have account?<a href="#" onclick="showLogin()">Login</a></p>
+             </div>
+            
+         </form>
+    </div>
+    <script src="./Login.js"></script>
+</body>
+</html>
