@@ -24,7 +24,23 @@
     }  
      
     if(isset($_POST['show']) && ($_POST['show'])){
-        
+        $type = $_POST['typeProduct'];
+         $name = $_POST['nameProduct'];
+         $cost = $_POST['priceProduct'];
+         $cost = (int)str_replace("$" , "" , $cost);
+         $dataProduct = "SELECT * FROM Products";
+         $result = $conn->query($dataProduct);
+         if($result->num_rows > 0){
+          $stt , $type , $ten , $quanity , $price , $totalProduct;
+           while($row = $result->fetch_assoc()){
+                $stt = $row['IDP'];
+                $type = $row['TYPEP'];
+                $ten = $row['NAMEP'];
+                $quanity = $row['AMOUNT'];
+                $price = $row['PRICE'];
+                $totalProduct = $row['AMOUNT'] * $row['PRICE'];
+           }
+         }
     }
 
 ?>  
@@ -39,7 +55,7 @@
   </head>
   <body>
         <form  name="A" id="A">
-            <div class="wrapper" id="homeForm">
+            <div class="wrapper active" id="homeForm">
             <header>
               <div class="nameShop">
                 <img src="./Image/brand.png" alt="">
@@ -123,7 +139,7 @@
                     <p class="type">Mechanic Watch</p>
                    <h3 class="name">Hublot Classic <br> Funsion</h3>
                    <p class="price">$9000</p>
-                   <i class="fa-regular fa-heart heart"></i>
+                   <i class="fa-regular fa-heart heart  "></i>
                    <input type="button" name="add" id="" value="Add" onclick="addProduct( event ,this)">
                 </div>
               </div> 
@@ -179,7 +195,7 @@
       </div>
      </form>
      <form  name="Show">
-        <div class="wrapper active" id="showForm">
+        <div class="wrapper" id="showForm">
           <header>
               <div class="nameShop">
                 <img src="./Image/brand.png" alt="">
@@ -206,6 +222,7 @@
               <thead>
                 <tr>
                   <th>STT</th>
+                  <th>Loại sản phẩm</th>
                   <th>Tên sản phẩm</th>
                   <th>Đơn giá</th>
                   <th>Số lượng</th>
@@ -213,7 +230,16 @@
                 </tr>
               </thead>
               <tbody>
-              
+               <?php 
+               <tr>
+                <td>echo $stt</td>
+                <td>echo $type</td>
+                <td>echo $ten</td>
+                <td>echo $price</td>
+                <td>echo $quanity</td>
+                <td>echo $totalProduct</td>
+               </tr>
+               ?>
               </tbody>
             </table>
         </div>
