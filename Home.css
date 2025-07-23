@@ -15,6 +15,12 @@ header{
     display: flex;
     align-items: center;
 }
+.wrapper{
+    display: none;
+}
+.wrapper.active{
+    display: block;
+}
 .nameShop{
     width: 350px;
     display: flex;
@@ -56,6 +62,13 @@ header{
 .navBar ul li a:hover{
     color: red;
     transform: translateY(-3px);
+}
+.cart{
+    margin: 0 auto;
+}
+.cart th , td {
+    width: 150px;
+    text-align: center;
 }
 #search{
     position: relative;

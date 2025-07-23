@@ -68,3 +68,9 @@ heart.forEach(function(heart){
         this.classList.toggle("liked");
   });
 });
+
+function showProduct(event, show){
+   event.preventDefault();
+    document.getElementById('homeForm').classList.remove('active');
+    document.getElementById('showForm').classList.add('active');
+}

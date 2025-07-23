@@ -13,7 +13,7 @@
                if(strtolower($name) === strtolower($rows['NAMEP'])){
                     $update = "UPDATE Products SET AMOUNT = AMOUNT + 1 WHERE LOWER(NAMEP) = LOWER('$name')";
                     $conn->query($update);
-                    break;
+                    break;  
                }
              }
       }else{
@@ -22,6 +22,10 @@
         $conn->query($sqlInsert);
       }
     }  
+     
+    if(isset($_POST['show']) && ($_POST['show'])){
+        
+    }
 
 ?>  
   <!DOCTYPE html>
@@ -34,8 +38,8 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   </head>
   <body>
-        <form action="index.php" method="post" name="A" id="A">
-            <div class="wrapper">
+        <form  name="A" id="A">
+            <div class="wrapper" id="homeForm">
             <header>
               <div class="nameShop">
                 <img src="./Image/brand.png" alt="">
@@ -165,18 +169,55 @@
               </div>
               </div>
               <div class="Actions">
-                 <input type="submit" name="show" id="Show" value="Xem giỏ hàng">
-              <input type="submit" name="delete" id="Delete" value="Xóa sản phẩm">
-              <input type="submit" name="pay" id="Pay" value="Thanh toán">
+                 <input type="submit" name="show" id="Show" value="Xem giỏ hàng" onclick="showProduct(event,this)">
+              <input type="submit" name="delete" id="Delete" value="Xóa sản phẩm" onclick="deleteProduct(event,this)">
+              <input type="submit" name="pay" id="Pay" value="Thanh toán" onclick="payAllProduct(event,this)">
               </div>
                    <input type="hidden" name="typeProduct" id="">
                   <input type="hidden" name="nameProduct">
                   <input type="hidden" name="priceProduct">
-                    <div class="bars">
-                
-             </div>
       </div>
      </form>
+     <form  name="Show">
+        <div class="wrapper active" id="showForm">
+          <header>
+              <div class="nameShop">
+                <img src="./Image/brand.png" alt="">
+                 <h2>Royal Time</h2>
+              </div>
+             <div class="navBar">
+               <ul>
+                <li><a href="#">XU HƯỚNG 2025</a></li>
+                <li><a href="#">Menu</a></li>
+                <li><a href="#">Nam</a></li>
+                <li><a href="#">Nữ</a></li>
+                <li><a href="#">Luxury</a></li>
+                <li><a href="#">Cũ cao cấp</a></li>
+                <li><a href="#">Treo tường</a></li>
+                 <li id="search">
+                  <i class='bx  bx-search icon-search'></i> 
+                  <input type="text" name="searh" id="" size="45  ">
+                 </li>
+                <li><i class='bx  bx-user-circle account-icon'  ></i> </li>
+               </ul>
+             </div>
+            </header>
+            <table border="1" class="cart">
+              <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Tên sản phẩm</th>
+                  <th>Đơn giá</th>
+                  <th>Số lượng</th>
+                   <th>Thành tiền</th>
+                </tr>
+              </thead>
+              <tbody>
+              
+              </tbody>
+            </table>
+        </div>
+     </form> </form>
       <script src="./Home.js"></script>
   </body>
   </html>
