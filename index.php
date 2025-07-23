@@ -54,7 +54,7 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   </head>
   <body>
-        <form  name="A" id="A">
+        <form method="post" action="index.php" name="A" id="A">
             <div class="wrapper active" id="homeForm">
             <header>
               <div class="nameShop">
@@ -194,7 +194,7 @@
                   <input type="hidden" name="priceProduct">
       </div>
      </form>
-     <form  name="Show">
+     <form method="post" action="index.php" name="Show">
         <div class="wrapper" id="showForm">
           <header>
               <div class="nameShop">
