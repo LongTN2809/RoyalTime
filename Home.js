@@ -71,6 +71,23 @@ heart.forEach(function(heart){
 
 function showProduct(event, show){
    event.preventDefault();
-    document.getElementById('homeForm').classList.remove('active');
-    document.getElementById('showForm').classList.add('active');
+   const form = document.getElementById("A");
+  const formData = new FormData(form);
+   formData.append("show", "Xem giỏ hàng");
+   fetch("index.php",{
+       method: "POST",
+       body: formData
+   })
+   .then(res=>res.text())
+   .then(data=>{
+     document.getElementById("homeForm").classList.remove("active");
+     document.getElementById("showForm").classList.add("active");
+       document.getElementById("homeForm").innerHTML = data;
+   });
+   
+}
+function back(event){
+    event.preventDefault();
+    document.getElementById('homeForm').classList.add('active');
+    document.getElementById('showForm').classList.remove('active');
 }

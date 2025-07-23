@@ -22,26 +22,13 @@
         $conn->query($sqlInsert);
       }
     }  
-     
-    if(isset($_POST['show']) && ($_POST['show'])){
-        $type = $_POST['typeProduct'];
-         $name = $_POST['nameProduct'];
-         $cost = $_POST['priceProduct'];
-         $cost = (int)str_replace("$" , "" , $cost);
-         $dataProduct = "SELECT * FROM Products";
-         $result = $conn->query($dataProduct);
-         if($result->num_rows > 0){
-          $stt , $type , $ten , $quanity , $price , $totalProduct;
-           while($row = $result->fetch_assoc()){
-                $stt = $row['IDP'];
-                $type = $row['TYPEP'];
-                $ten = $row['NAMEP'];
-                $quanity = $row['AMOUNT'];
-                $price = $row['PRICE'];
-                $totalProduct = $row['AMOUNT'] * $row['PRICE'];
-           }
-         }
+     if($_SERVER['REQUEST_METHOD'] === 'POST'){
+         if(isset($_POST['show']) && ($_POST['show'])){
+         $showData = "SELECT * FROM Products";
+         $result2 = $conn->query($showData);
     }
+     }
+    
 
 ?>  
   <!DOCTYPE html>
@@ -52,11 +39,13 @@
       <title>Royal Time</title>
       <link rel="stylesheet" href="Home.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+      <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   </head>
   <body>
         <form method="post" action="index.php" name="A" id="A">
             <div class="wrapper active" id="homeForm">
             <header>
+            
               <div class="nameShop">
                 <img src="./Image/brand.png" alt="">
                  <h2>Royal Time</h2>
@@ -194,9 +183,11 @@
                   <input type="hidden" name="priceProduct">
       </div>
      </form>
+     
      <form method="post" action="index.php" name="Show">
         <div class="wrapper" id="showForm">
           <header>
+             <i class="fa-solid fa-arrow-left back-home" onclick="back(event ,this)"></i>
               <div class="nameShop">
                 <img src="./Image/brand.png" alt="">
                  <h2>Royal Time</h2>
@@ -218,6 +209,7 @@
                </ul>
              </div>
             </header>
+            <?php if(isset($result2)): ?>
             <table border="1" class="cart">
               <thead>
                 <tr>
@@ -230,20 +222,35 @@
                 </tr>
               </thead>
               <tbody>
-               <?php 
-               <tr>
-                <td>echo $stt</td>
-                <td>echo $type</td>
-                <td>echo $ten</td>
-                <td>echo $price</td>
-                <td>echo $quanity</td>
-                <td>echo $totalProduct</td>
-               </tr>
-               ?>
-              </tbody>
-            </table>
+                 <?php 
+        if($result2->num_rows > 0){
+          while($row = $result2->fetch_assoc()){
+              $stt = $row['IDP'];
+              $type = $row['TYPEP'];
+              $ten = $row['NAMEP'];
+              $quanity = $row['AMOUNT'];
+              $price = $row['PRICE'];
+              $totalProduct = $row['AMOUNT'] * $row['PRICE'];
+      ?>
+        <tr>
+          <td><?php echo $stt; ?></td>
+          <td><?php echo $type; ?></td>
+          <td><?php echo $ten; ?></td>
+          <td><?php echo $price; ?></td>
+          <td><?php echo $quanity; ?></td>
+          <td><?php echo $totalProduct; ?></td>
+        </tr>
+      <?php 
+          }
+        } else {
+          echo "<tr><td colspan='6'>Không có dữ liệu</td></tr>";
+        }
+      ?>
+    </tbody>
+  </table>
+<?php endif; ?> 
         </div>
-     </form> </form>
+     </form>
       <script src="./Home.js"></script>
   </body>
   </html>

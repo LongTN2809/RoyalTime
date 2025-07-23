@@ -70,6 +70,10 @@ header{
     width: 150px;
     text-align: center;
 }
+.back-home{
+    font-size: 30px;
+    margin-left: 20px;
+}
 #search{
     position: relative;
 }
