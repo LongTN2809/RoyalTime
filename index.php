@@ -22,13 +22,7 @@
         $conn->query($sqlInsert);
       }
     }  
-     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-         if(isset($_POST['show']) && ($_POST['show'])){
-         $showData = "SELECT * FROM Products";
-         $result2 = $conn->query($showData);
-    }
-     }
-    
+   
 
 ?>  
   <!DOCTYPE html>
@@ -173,84 +167,17 @@
                <button onclick="ScrollLeft(event)" class="leftMouse"><i class="fa-solid fa-chevron-left angleLeft"></i></button>
               </div>
               </div>
-              <div class="Actions">
-                 <input type="submit" name="show" id="Show" value="Xem giỏ hàng" onclick="showProduct(event,this)">
-              <input type="submit" name="delete" id="Delete" value="Xóa sản phẩm" onclick="deleteProduct(event,this)">
-              <input type="submit" name="pay" id="Pay" value="Thanh toán" onclick="payAllProduct(event,this)">
-              </div>
+           
                    <input type="hidden" name="typeProduct" id="">
                   <input type="hidden" name="nameProduct">
                   <input type="hidden" name="priceProduct">
       </div>
      </form>
-     
-     <form method="post" action="index.php" name="Show">
-        <div class="wrapper" id="showForm">
-          <header>
-             <i class="fa-solid fa-arrow-left back-home" onclick="back(event ,this)"></i>
-              <div class="nameShop">
-                <img src="./Image/brand.png" alt="">
-                 <h2>Royal Time</h2>
+        <div class="Actions">
+                 <input type="submit" name="show" id="Show" value="Xem giỏ hàng" onclick="showProduct(event,this)">
+              <input type="submit" name="delete" id="Delete" value="Xóa sản phẩm" onclick="deleteProduct(event,this)">
+              <input type="submit" name="pay" id="Pay" value="Thanh toán" onclick="payAllProduct(event,this)">
               </div>
-             <div class="navBar">
-               <ul>
-                <li><a href="#">XU HƯỚNG 2025</a></li>
-                <li><a href="#">Menu</a></li>
-                <li><a href="#">Nam</a></li>
-                <li><a href="#">Nữ</a></li>
-                <li><a href="#">Luxury</a></li>
-                <li><a href="#">Cũ cao cấp</a></li>
-                <li><a href="#">Treo tường</a></li>
-                 <li id="search">
-                  <i class='bx  bx-search icon-search'></i> 
-                  <input type="text" name="searh" id="" size="45  ">
-                 </li>
-                <li><i class='bx  bx-user-circle account-icon'  ></i> </li>
-               </ul>
-             </div>
-            </header>
-            <?php if(isset($result2)): ?>
-            <table border="1" class="cart">
-              <thead>
-                <tr>
-                  <th>STT</th>
-                  <th>Loại sản phẩm</th>
-                  <th>Tên sản phẩm</th>
-                  <th>Đơn giá</th>
-                  <th>Số lượng</th>
-                   <th>Thành tiền</th>
-                </tr>
-              </thead>
-              <tbody>
-                 <?php 
-        if($result2->num_rows > 0){
-          while($row = $result2->fetch_assoc()){
-              $stt = $row['IDP'];
-              $type = $row['TYPEP'];
-              $ten = $row['NAMEP'];
-              $quanity = $row['AMOUNT'];
-              $price = $row['PRICE'];
-              $totalProduct = $row['AMOUNT'] * $row['PRICE'];
-      ?>
-        <tr>
-          <td><?php echo $stt; ?></td>
-          <td><?php echo $type; ?></td>
-          <td><?php echo $ten; ?></td>
-          <td><?php echo $price; ?></td>
-          <td><?php echo $quanity; ?></td>
-          <td><?php echo $totalProduct; ?></td>
-        </tr>
-      <?php 
-          }
-        } else {
-          echo "<tr><td colspan='6'>Không có dữ liệu</td></tr>";
-        }
-      ?>
-    </tbody>
-  </table>
-<?php endif; ?> 
-        </div>
-     </form>
       <script src="./Home.js"></script>
   </body>
   </html>

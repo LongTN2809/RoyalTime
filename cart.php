@@ -1,3 +1,13 @@
+<?php 
+$conn = new mysqli("localhost" , "root" , "" , "QLSHOPDH");
+
+     
+$showData = "SELECT * FROM Products";
+$result = $conn->query($showData);
+// $productName = $productType = $productID = $productPrice = $productCount = $productTotal = NULL;
+
+    
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +24,7 @@
         <div class="wrapper" id="showForm">
           <header>
               <div class="nameShop">
+                <i class="fa-solid fa-arrow-left back" onclick="back(this)"></i>
                 <img src="./Image/brand.png" alt="">
                  <h2>Royal Time</h2>
               </div>
@@ -34,10 +45,11 @@
                </ul>
              </div>
             </header>
-            <table border="1" class="cart">
+            <table   class="cart">
               <thead>
                 <tr>
                   <th>STT</th>
+                  <th>Loại sản phẩm</th>
                   <th>Tên sản phẩm</th>
                   <th>Đơn giá</th>
                   <th>Số lượng</th>
@@ -45,7 +57,27 @@
                 </tr>
               </thead>
               <tbody>
-              
+               <?php 
+         $total = NULL;
+             if($result->num_rows > 0){
+    while($row = $result->fetch_assoc()){
+      $total += $row['PRICE'] * $row['AMOUNT'];
+       echo "<tr>";
+       echo "<td>" . $row['IDP'] . "</td>";
+       echo "<td>" . $row['TYPEP'] . "</td>";
+       echo "<td>" . $row['NAMEP'] . "</td>";
+       echo "<td>". "$"  . $row['PRICE'] . "</td>";
+       echo "<td>" . $row['AMOUNT'] . "</td>";
+       echo "<td>". "$" . $row['PRICE'] * $row['AMOUNT'] . "</td>";
+        echo "<td> <i class='fa-solid fa-minus minus-product'></i> </td>";
+       echo "</tr>";
+    }
+      echo "<tr>";
+      echo "<td colspan ='7' style='text-align:center ; font-weight:bold ; color:red'>" . "Tổng thanh toán : " . $total . "</td>";
+       echo "</tr>";
+}
+               ?>
+
               </tbody>
             </table>
         </div>

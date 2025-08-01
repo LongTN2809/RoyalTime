@@ -63,26 +63,13 @@ function ScrollLeft(event){
      }
   });
 let heart = document.querySelectorAll(".heart");
-heart.forEach(function(heart){
+heart.forEach(function(eachHeart){
   heart.addEventListener("click" , function(){
         this.classList.toggle("liked");
   });
 });
 
-function showProduct(event, show){
+function showProduct(event){
    event.preventDefault();
-   const form = document.getElementById("A");
-  const formData = new FormData(form);
-   formData.append("show", "Xem giỏ hàng");
-   fetch("index.php",{
-       method: "POST",
-       body: formData
-   })
-   .then(res=>res.text())
-   .then(data=>{
-     document.getElementById("homeForm").classList.remove("active");
-     document.getElementById("showForm").classList.add("active");
-       document.getElementById("homeForm").innerHTML = data;
-   });
-   
+    window.location.href="cart.php";
 }

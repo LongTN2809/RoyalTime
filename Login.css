@@ -69,6 +69,12 @@ body{
 .eye-close.click::before{
     content: "\f06e";
 }
+.email{
+    position: absolute;
+ top: 50%;
+ transform: translateY(-50%);
+ right: 40px;
+}
 .user{
  position: absolute;
  top: 50%;

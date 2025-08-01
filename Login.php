@@ -111,6 +111,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               <input type="password" name="userpass" id="" placeholder="Password" required>
               <i class="fa-solid fa-eye-slash eye-close"></i>
              </div>
+             <div class="input-box">
+              <input type="email" name="useremail" id="" placeholder="Email" required>
+              <i class="fa-solid fa-envelope email"></i>
+             </div>
              <div class="remember-forgot">
               <label for=""><input type="checkbox" name="rmb" id="">Remember me</label>
               <a href="#">Forgot password?</a>
@@ -133,7 +137,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
              <div class="register">
               <p>Do you have account?<a href="#" onclick="showLogin()">Login</a></p>
              </div>
-            
          </form>
     </div>
     <script src="./Login.js"></script>
