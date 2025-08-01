@@ -69,10 +69,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
              <div class="input-box">
               <input type="text" name="username" id="" placeholder="Username" required>
               <i class="fa-solid fa-user user"></i>
+              <p class="notice"></p>
              </div>
              <div class="input-box">
               <input type="password" name="userpass" id="" placeholder="Password" required>
               <i class="fa-solid fa-eye-slash eye-close"></i>
+              <p class="notice"></p>
              </div>
              <div class="remember-forgot">
               <label for=""><input type="checkbox" name="rmb" id="">Remember me</label>
@@ -88,11 +90,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                             Login
                     </button>
              </div>
-               <div class="Notice">
-                <?php 
-                echo "<p>$Notification </p>" ;
-                ?>
-             </div>
              <div class="register">
               <p>Don't have account?<a href="#" onclick="showRegister()">Register</a></p>
              </div>
@@ -106,14 +103,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
              <div class="input-box">
               <input type="text" name="username" id="" placeholder="Username" required>
               <i class="fa-solid fa-user user"></i>
+              <p class="notice"></p>
              </div>
              <div class="input-box">
               <input type="password" name="userpass" id="" placeholder="Password" required>
               <i class="fa-solid fa-eye-slash eye-close"></i>
+              <p class="notice"></p>
              </div>
              <div class="input-box">
               <input type="email" name="useremail" id="" placeholder="Email" required>
               <i class="fa-solid fa-envelope email"></i>
+              <p class="notice"></p>
              </div>
              <div class="remember-forgot">
               <label for=""><input type="checkbox" name="rmb" id="">Remember me</label>
@@ -121,7 +121,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
              </div>
              <div class="login-box">
                 <!-- <input type="submit" class="btn" name="register" value="Register"> -->
-                  <button class="btn" name="register" value="register" type="submit">
+                  <button class="btn" name="login" value="login" type="submit">
                          <span></span>
                          <span></span>
                          <span></span>
@@ -129,11 +129,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                          Register
                   </button>
              </div>
-             <!-- <div class="Notice">
-                <?php 
-                echo "<p>$Notification </p>" ;
-                ?>
-             </div> -->
              <div class="register">
               <p>Do you have account?<a href="#" onclick="showLogin()">Login</a></p>
              </div>
