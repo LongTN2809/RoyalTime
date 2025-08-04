@@ -4,7 +4,7 @@ $conn = new mysqli("localhost" , "root" , "" , "QLSHOPDH");
      
 $showData = "SELECT * FROM Products";
 $result = $conn->query($showData);
-// $productName = $productType = $productID = $productPrice = $productCount = $productTotal = NULL;
+
 
     
 ?>

@@ -226,3 +226,10 @@ position: absolute;
 .warning{
     border: 2px solid rgb(255, 0, 0) !important;
 }
+.notice2{
+    position: absolute;
+    top: 55px;
+    left:35px;
+    font-size: 14px;
+    color: red;
+}

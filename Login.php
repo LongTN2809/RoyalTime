@@ -1,56 +1,13 @@
 <?php
-session_start();
- if(isset($_SESSION['Notification'])){
-    $Notification = $_SESSION['Notification'];
- }else{
-    $Notification = "";
+  session_start();
+ if(isset($_SESSION['checkDuplicateName'])){
+     $checkName = $_SESSION['checkDuplicateName'];
  }
- unset($_SESSION['Notification']);
- $conn = new mysqli("localhost" , "root" , "" , "QLSHOPDH");
- if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
-}
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-  if(isset($_POST['register']) && ($_POST['register'])){
-     $name = $_POST["username"];
- $pass = $_POST["userpass"];
- $hashPass = password_hash($pass, PASSWORD_DEFAULT);
- $sql = "INSERT INTO Users (NAME , PASSWORD) VALUES ('$name' , '$hashPass')";
-  if ($conn->query($sql) === TRUE) {
-      $_SESSION['Notification'] = "Đăng ký thành công";
-      header("Location: Login.php");
-     exit;
-    } else {
-        $_SESSION['Notification'] = "Lỗi" ;
-         $conn->error;
-    }
-  }
-
-  if(isset($_POST['login']) && ($_POST['login'])){
-      $name = $_POST['username'];
-      $pass = $_POST['userpass'];
-      $sqlSelect = "SELECT * FROM Users";
-      $result = $conn->query($sqlSelect);
-      if($result->num_rows > 0){
-        $found = false;
-        while($row= $result->fetch_assoc()){
-            if(strtolower($name) === strtolower($row['NAME']) && password_verify($pass , $row['PASSWORD'])){
-             $found = true;
-             break;
-            }
-        }
-      }
-      if(!$found){
-        $_SESSION['Notification'] = "Tên hoặc mật khẩu không đúng";
-        header("Location: Login.php");
-        exit;
-      }else{
-        header("Location: index.php");
-        exit;
-      }
-  }
-}
-
+ if(isset($_SESSION['checkDuplicatePass'])){
+     $checkPass = $_SESSION['checkDuplicatePass'];
+ }
+ unset($_SESSION['checkDuplicateName']);
+ unset($_SESSION['checkDuplicatePass']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,24 +21,25 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <body>
       
         <div class="wrapper active" id="loginForm">
-         <form action="Login.php" method="post">
+         <form action="Process_Login.php" method="post">
              <h2>Login</h2>
              <div class="input-box">
-              <input type="text" name="username" id="" placeholder="Username" required>
+              <input type="text" name="username" id="" placeholder="Username"  required>
               <i class="fa-solid fa-user user"></i>
               <p class="notice"></p>
+             
              </div>
              <div class="input-box">
-              <input type="password" name="userpass" id="" placeholder="Password" required>
+              <input type="password" name="userpass" id="" placeholder="Password"  required>
               <i class="fa-solid fa-eye-slash eye-close"></i>
               <p class="notice"></p>
+             
              </div>
              <div class="remember-forgot">
               <label for=""><input type="checkbox" name="rmb" id="">Remember me</label>
               <a href="#">Forgot password?</a>
              </div>
              <div class="login-box">
-                    <!-- <input type="submit" class="btn" name="login" value="Login"> -->
                      <button class="btn" name="login" value="login" type="submit">
                             <span></span>
                             <span></span>
@@ -98,15 +56,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     </div>
 
     <div class="wrapper" id="registerForm">
-         <form action="Login.php" method="post">
+         <form action="Process_Login.php" method="post">
              <h2>Register</h2>
              <div class="input-box">
-              <input type="text" name="username" id="" placeholder="Username" required>
+             
+              <input type="text" name="username" id="" placeholder="Username"  required>
               <i class="fa-solid fa-user user"></i>
               <p class="notice"></p>
              </div>
              <div class="input-box">
-              <input type="password" name="userpass" id="" placeholder="Password" required>
+              <input type="password" name="userpass" id="" placeholder="Password"  required>
               <i class="fa-solid fa-eye-slash eye-close"></i>
               <p class="notice"></p>
              </div>
@@ -114,14 +73,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
               <input type="email" name="useremail" id="" placeholder="Email" required>
               <i class="fa-solid fa-envelope email"></i>
               <p class="notice"></p>
+              
              </div>
              <div class="remember-forgot">
               <label for=""><input type="checkbox" name="rmb" id="">Remember me</label>
               <a href="#">Forgot password?</a>
              </div>
              <div class="login-box">
-                <!-- <input type="submit" class="btn" name="register" value="Register"> -->
-                  <button class="btn" name="login" value="login" type="submit">
+                    <button class="btn" name="register" value="Register" type="submit">
                          <span></span>
                          <span></span>
                          <span></span>
@@ -134,6 +93,23 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
              </div>
          </form>
     </div>
-    <script src="./Login.js"></script>
+    <script src="./Login.js">
+    </script>
+    <script>
+   const checkName = <?php echo json_encode($checkName) ?>;
+   const checkPass = <?php echo json_encode($checkPass) ?>;
+   document.addEventListener("DOMContentLoaded" , function(){
+        document.querySelector('[name="username"]').classList.remove('warning');
+        document.querySelector('[name="userpass"]').classList.remove('warning');
+      if(checkName == false){
+      document.querySelector('[name="username"]').classList.add('warning');
+      
+   }
+   if(checkPass == false){
+      document.querySelector('[name="userpass"]').classList.add('warning');
+   }
+   });
+  
+    </script>
 </body>
 </html>
