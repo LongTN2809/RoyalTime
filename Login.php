@@ -2,6 +2,7 @@
   session_start();
  if(isset($_SESSION['checkDuplicateName'])){
      $checkName = $_SESSION['checkDuplicateName'];
+
  }
  if(isset($_SESSION['checkDuplicatePass'])){
      $checkPass = $_SESSION['checkDuplicatePass'];
@@ -21,7 +22,7 @@
 <body>
       
         <div class="wrapper active" id="loginForm">
-         <form action="Process_Login.php" method="post">
+         <form action="Process_Login.php" method="post" >
              <h2>Login</h2>
              <div class="input-box">
               <input type="text" name="username" id="" placeholder="Username"  required>
@@ -98,15 +99,22 @@
     <script>
    const checkName = <?php echo json_encode($checkName) ?>;
    const checkPass = <?php echo json_encode($checkPass) ?>;
+   const form = document.querySelector("form");
+   const notices = form.querySelectorAll(".notice");
    document.addEventListener("DOMContentLoaded" , function(){
         document.querySelector('[name="username"]').classList.remove('warning');
         document.querySelector('[name="userpass"]').classList.remove('warning');
+        notices.forEach(function(notice){
+         notice.innerText = "";
+    });
       if(checkName == false){
       document.querySelector('[name="username"]').classList.add('warning');
-      
+      notices[0].innerText = "Name is uncorrect!";
    }
    if(checkPass == false){
       document.querySelector('[name="userpass"]').classList.add('warning');
+      notices[1].innerText = "Password is uncorrect!";
+       notices[1].style.top = 55 + "px";
    }
    });
   

@@ -71,6 +71,8 @@
                    <h3 class="name">Apple Watch<br>Ultra 2</h3>
                    <p class="price">$200</p>
                    <i class="fa-regular fa-heart heart"></i>
+                 
+
                    <input type="button" name="add" id="" value="Add" onclick="addProduct(event , this)">
                 </div>
               </div>

@@ -14,7 +14,7 @@
    }
   }else if(isset($_POST['login']) && ($_POST['login'])){
         $name = $_POST['username'];
-   $pass = $_POST['userpass'];
+      $pass = $_POST['userpass'];
     $_SESSION['checkDuplicateName'] = false;
    $_SESSION['checkDuplicatePass'] = false;
   $compare = "SELECT * FROM UserAccount WHERE nameUser = '$name'";
